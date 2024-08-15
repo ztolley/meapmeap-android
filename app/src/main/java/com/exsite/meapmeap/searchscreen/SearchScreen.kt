@@ -120,7 +120,6 @@ fun generateFakeSearchResults(): List<SearchResult> {
             postcode = "BL1 2AB",
             latitude = "51.5074",
             longitude = "-0.1278",
-            what3words = "blue.cafe.location",
             distance = 1.2321
         ),
         SearchResult(
@@ -130,7 +129,6 @@ fun generateFakeSearchResults(): List<SearchResult> {
             postcode = "GR3 4CD",
             latitude = "51.5074",
             longitude = "-0.1278",
-            what3words = "green.park.location",
             distance = 2.5123
         ),
         SearchResult(
@@ -140,7 +138,6 @@ fun generateFakeSearchResults(): List<SearchResult> {
             postcode = "RD5 6EF",
             latitude = "51.5074",
             longitude = "-0.1278",
-            what3words = "red.restaurant.location",
             distance = 3.832123
         ),
         SearchResult(
@@ -150,7 +147,6 @@ fun generateFakeSearchResults(): List<SearchResult> {
             postcode = "BL1 2AB",
             latitude = "51.5074",
             longitude = "-0.1278",
-            what3words = "blue.cafe.location",
             distance = 1.2321
         ),
         SearchResult(
@@ -160,7 +156,6 @@ fun generateFakeSearchResults(): List<SearchResult> {
             postcode = "GR3 4CD",
             latitude = "51.5074",
             longitude = "-0.1278",
-            what3words = "green.park.location",
             distance = 2.5123
         ),
         SearchResult(
@@ -170,7 +165,6 @@ fun generateFakeSearchResults(): List<SearchResult> {
             postcode = "RD5 6EF",
             latitude = "51.5074",
             longitude = "-0.1278",
-            what3words = "red.restaurant.location",
             distance = 3.832123
         )
     )
