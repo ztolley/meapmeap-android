@@ -14,6 +14,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
+import com.exsite.meapmeap.MainViewModel
 import com.exsite.meapmeap.api.Meap
 import com.exsite.meapmeap.api.fetchMeap
 import kotlinx.coroutines.launch
@@ -21,13 +23,16 @@ import kotlinx.coroutines.launch
 @Composable
 fun MeapDetailScreen(
     id: String,
-    navigateBack: () -> Unit
+    navController: NavController,
+    viewModel: MainViewModel
 ) {
     var meap by remember { mutableStateOf<Meap?>(null) }
     var loading by remember { mutableStateOf(true) }
     val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(id) {
+        viewModel.updateTopBarTitle("Meap Detail")
+
         coroutineScope.launch {
             meap = fetchMeap(id)
             loading = false
@@ -35,7 +40,7 @@ fun MeapDetailScreen(
     }
 
     BackHandler {
-        navigateBack()
+        navController.popBackStack()
     }
 
     if (loading) {

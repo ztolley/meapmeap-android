@@ -113,7 +113,7 @@ fun SectionHeader(title: String) {
 fun MeapDetailSectionPreview() {
     val fakeMeap = Meap(
         id = "762a3361-dd68-49f4-80ab-7a6fde33fda2",
-        locationName = "Gordons School Sports Ground",
+        locationName = "Gordon's School Sports Ground",
         address = "Bagshot Road, West End, Woking, Surrey",
         postcode = "GU24 9PT",
         defibrillatorLocation = "On the outside of the cafe building to the side of the building, not opposite the main pitch.",
@@ -127,7 +127,9 @@ fun MeapDetailSectionPreview() {
         walkInCentreName = "Farnham Hospital",
         walkInCentreAddress = "Hale Road, Farnham, Surrey",
         walkInCentrePostcode = "GU9 9QL",
-        accessRouteForAmbulance = "Sports center opposite side of the main road from the main school building. There is a small road between the two car parks, follow it down a small hill to the sports building that as space for ambulance to park right by the pitch.",
+        accessRouteForAmbulance = "Sports center opposite side of the main road from the main school building. " +
+                "There is a small road between the two car parks, follow it down a small hill to the sports building" +
+                "that as space for ambulance to park right by the pitch.",
         latitude = "51.345103",
         longitude = "-0.646159",
         what3words = "Green Pink Butterfly",

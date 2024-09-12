@@ -29,7 +29,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.exsite.meapmeap.MainViewModel
 import com.exsite.meapmeap.R
+import com.exsite.meapmeap.Screen
 import com.exsite.meapmeap.api.SearchResult
 import com.exsite.meapmeap.api.search
 import com.exsite.meapmeap.ui.theme.MeapMeapTheme
@@ -40,8 +45,11 @@ import kotlinx.coroutines.launch
 fun SearchScreen(
     modifier: Modifier = Modifier,
     initialSearchResults: List<SearchResult> = emptyList(),
-    navigateToMeapDetail: (id: String) -> Unit,
+    navController: NavController,
+    viewModel: MainViewModel
 ) {
+
+
     var query by rememberSaveable { mutableStateOf("") }
     var searchResults by rememberSaveable { mutableStateOf(initialSearchResults) }
     var loading by remember { mutableStateOf(false) }
@@ -49,6 +57,8 @@ fun SearchScreen(
     val coroutineScope = rememberCoroutineScope()
     val focusManager = LocalFocusManager.current
     val image = painterResource(id = R.drawable.meap_case)
+
+    viewModel.updateTopBarTitle("Search")
 
     Column(
         modifier = modifier
@@ -101,7 +111,9 @@ fun SearchScreen(
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 items(searchResults) { result ->
                     SearchResultCard(
-                        navigateToMeapDetail = navigateToMeapDetail,
+                        navigateToMeapDetail = { id ->
+                            navController.navigate(Screen.Detail(id))
+                        },
                         result = result
                     )
                 }
@@ -174,11 +186,14 @@ fun generateFakeSearchResults(): List<SearchResult> {
 @Composable
 fun SearchScreenPreview() {
     val fakeResults = generateFakeSearchResults()
+    val navController = rememberNavController()
+    val viewModel = viewModel<MainViewModel>()
 
     MeapMeapTheme {
         SearchScreen(
             initialSearchResults = fakeResults,
-            navigateToMeapDetail = { }
+            navController = navController,
+            viewModel = viewModel
         )
     }
 }
