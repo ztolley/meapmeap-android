@@ -1,25 +1,40 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
 }
 
+val javaVersion = 21
+val javaVersionEnum = when (javaVersion) {
+    8 -> JavaVersion.VERSION_1_8
+    11 -> JavaVersion.VERSION_11
+    17 -> JavaVersion.VERSION_17
+    21 -> JavaVersion.VERSION_21
+    else -> throw GradleException("Unsupported Java version: $javaVersion")
+}
+
+val kotlinJvmTargetEnum = when (javaVersion) {
+    8 -> org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8
+    11 -> org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
+    17 -> org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+    21 -> org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
+    else -> throw GradleException("Unsupported Kotlin JVM target for Java version: $javaVersion")
+}
+
+
 android {
     namespace = "com.exsite.meapmeap"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.exsite.meapmeap"
         minSdk = 30
-        targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        targetSdk = 36
+        versionCode = 3
+        versionName = "1.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
     }
 
     buildTypes {
@@ -29,22 +44,23 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            setProperty("archivesBaseName", "MeapMeap-v${defaultConfig.versionName}")
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = javaVersionEnum
+        targetCompatibility = javaVersionEnum
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+
     buildFeatures {
         compose = true
     }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(kotlinJvmTargetEnum)
         }
+        jvmToolchain(javaVersion)
     }
 }
 
